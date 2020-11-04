@@ -61,8 +61,7 @@ public class FPSController : MonoBehaviour
 
     private void Awake()
     {
-        mPitch = mPitchController.transform.rotation.eulerAngles.x;
-        mYaw = transform.rotation.eulerAngles.y;
+        setYawAndPitch();
 
         /*impactCounter = 0;
         impactParticles = new GameObject[maxImpactParticles];
@@ -113,7 +112,7 @@ public class FPSController : MonoBehaviour
 
         Rotate(mouseAxisX, mouseAxisY);
 
-        //recoverPrecision();
+        //  recoverPrecision();
 
         /*if (Input.GetMouseButtonDown(0))
         {
@@ -184,6 +183,13 @@ public class FPSController : MonoBehaviour
 
         //modifyDispersion(lMovement.magnitude * currentWeaponStats.moveDisp * Time.deltaTime);
     }
+
+    public void setYawAndPitch()
+    {
+        mPitch = mPitchController.transform.rotation.eulerAngles.x;
+        mYaw = transform.rotation.eulerAngles.y;
+    }
+
 /*[SerializeField] float decalOffsetFromPlane = 0.01f;
     private void Shoot()
     {

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField] Transform virtualPortal;
-    [SerializeField] Portal otherPortal;
+    [SerializeField] public Transform virtualPortal;
+    [SerializeField] public Portal otherPortal;
     public Camera cameraPortal;
     [SerializeField] Camera playerCamera;
     [SerializeField] float clipPlaneOffset = 1.0f;
@@ -19,5 +19,10 @@ public class Portal : MonoBehaviour
         otherPortal.cameraPortal.transform.forward = otherPortal.transform.TransformDirection(local_direction);
 
         otherPortal.cameraPortal.nearClipPlane = (transform.position - playerCamera.transform.position).magnitude + clipPlaneOffset;
+    }
+
+    public Vector3 getScale()
+    {
+        return transform.localScale;
     }
 }

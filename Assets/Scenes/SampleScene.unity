@@ -1691,6 +1691,8 @@ GameObject:
   - component: {fileID: 1407486020}
   - component: {fileID: 1407486019}
   - component: {fileID: 1407486018}
+  - component: {fileID: 1407486024}
+  - component: {fileID: 1407486025}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -1775,14 +1777,74 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407486017}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.49, y: 1.322, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8.61, y: 1.322, z: -33.32}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children:
-  - {fileID: 213186487}
   - {fileID: 1757377030}
+  - {fileID: 213186487}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1407486024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407486017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d234c9a7bbe024296c5e53382b2bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LineRenderer: {fileID: 1757377031}
+  m_MaxDistance: 10
+  m_CollisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1407486025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407486017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841150ea5c07dd74f8f49bc2f16a4962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUpEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1407486024}
+        m_TargetAssemblyTypeName: Laser, Assembly-CSharp
+        m_MethodName: activateLaser
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isDownEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1407486024}
+        m_TargetAssemblyTypeName: Laser, Assembly-CSharp
+        m_MethodName: deactivateLaser
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  maxAngle: 30
 --- !u!108 &1526614432 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 5616356957823803825, guid: 9164b27ae646f8c458e7315e468914df, type: 3}
@@ -2386,7 +2448,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1407486023}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &1757377031
 LineRenderer:
@@ -2438,8 +2500,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.20987701
-        value: 0.011894226
+        time: 0.9139023
+        value: 0.0059280396
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2827,7 +2889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: e974cdd27b308e14fadbc5fef531fbbc, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: e974cdd27b308e14fadbc5fef531fbbc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

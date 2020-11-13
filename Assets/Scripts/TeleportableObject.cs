@@ -23,7 +23,11 @@ public class TeleportableObject : MonoBehaviour
             teleportPosition = portal.otherPortal.transform.TransformPoint(l_Position);
             teleportForward = portal.otherPortal.transform.TransformDirection(l_Direction);
             teleportPosition += portal.otherPortal.transform.forward * teleportOffset;
-            teleportVelocity = Vector3.Reflect(transform.GetComponent<Rigidbody>().velocity, portal.otherPortal.transform.forward);
+            var velocity = transform.GetComponent<Rigidbody>().velocity;
+            velocity = portal.virtualPortal.transform.InverseTransformDirection(velocity);
+            velocity = portal.otherPortal.transform.TransformDirection(velocity);
+            teleportVelocity = velocity;
+
 
             if (TryGetComponent(out CharacterController characterController))
             {

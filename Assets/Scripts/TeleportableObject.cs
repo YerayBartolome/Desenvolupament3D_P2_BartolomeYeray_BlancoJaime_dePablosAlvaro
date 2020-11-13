@@ -11,7 +11,7 @@ public class TeleportableObject : MonoBehaviour
     Vector3 teleportForward;
     Vector3 teleportVelocity;
     bool teleporting;
-    Vector3 teleportSize;
+    float teleportSizeRatio;
 
     void OnTriggerEnter(Collider other)
     {
@@ -29,20 +29,11 @@ public class TeleportableObject : MonoBehaviour
             teleportVelocity = velocity;
 
 
-            if (TryGetComponent(out CharacterController characterController))
-            {
-                characterController.enabled = false;
-            }
+            if (TryGetComponent(out CharacterController characterController)) characterController.enabled = false;
+            
 
-            if (transform.CompareTag("Cube"))
-            {
-                float teleportSizeX = transform.localScale.x * portal.otherPortal.getScale().x / portal.getScale().x;
-                float teleportSizeY = transform.localScale.y * portal.otherPortal.getScale().y / portal.getScale().y;
-                float teleportSizeZ = transform.localScale.z * portal.otherPortal.getScale().y / portal.getScale().y;
-                
-                teleportSize = new Vector3(teleportSizeX, teleportSizeY, teleportSizeZ);
-                teleportPosition += portal.otherPortal.transform.forward * teleportSize.z;
-            }
+            if (transform.CompareTag("Cube")) teleportSizeRatio = (portal.otherPortal.transform.localScale.x / portal.transform.localScale.x);
+
 
             teleporting = true;
 
@@ -57,7 +48,7 @@ public class TeleportableObject : MonoBehaviour
             transform.position = teleportPosition;
             transform.forward = teleportForward;
             GetComponent<Rigidbody>().velocity = teleportVelocity;
-            if (transform.CompareTag("Cube")) transform.localScale = teleportSize;
+            if (transform.CompareTag("Cube")) transform.localScale *= teleportSizeRatio;
             teleporting = false;
             if (TryGetComponent(out FPSController controller)) controller.setYawAndPitch();
             if (TryGetComponent(out CharacterController characterController))

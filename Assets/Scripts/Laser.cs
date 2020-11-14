@@ -30,6 +30,10 @@ public class Laser : MonoBehaviour
             {
                 //Kill player
             }
+            else if (l_RaycastHit.transform.gameObject.CompareTag("Turret"))
+            {
+                Destroy(l_RaycastHit.transform.gameObject);
+            }
         }
         m_LineRenderer.SetPosition(1, lastPoint);
     }

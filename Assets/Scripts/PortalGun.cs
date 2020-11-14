@@ -43,19 +43,11 @@ public class PortalGun : MonoBehaviour
     [SerializeField]
     Color colorB, colorO;
 
-    [Header("CompanionCubeGrabber")]
-    [SerializeField] Transform cubePositioner;
-    [SerializeField] float cubeForwardForce;
-    [SerializeField] float cubeTravelTime, cubeDisableTime;
-    [SerializeField] private bool cubeGrabbed = false;
-    Transform companionCube;
-    private float timeToGrab;
 
     private void Awake()
     {
         spriteRenderer.sprite = crosshair;
         light.color = Color.white;
-        timeToGrab = 0f;
     }
 
     void Update()
@@ -63,7 +55,7 @@ public class PortalGun : MonoBehaviour
         spriteRenderer.sprite = crosshair;
         bool isValid = false;
 
-        if (!cubeGrabbed && (Input.GetMouseButton(0) || Input.GetMouseButton(1)) && !grabCube())
+        if ( Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
             
             isValid = putPreview();
@@ -71,16 +63,6 @@ public class PortalGun : MonoBehaviour
             meshRenderer.material = Input.GetMouseButton(0) ? materialB : materialO;
             light.color = Input.GetMouseButton(0) ? colorB : colorO;
             
-        }
-
-        if (cubeGrabbed && Input.GetMouseButtonDown(1) && Time.time > timeToGrab)
-        {
-            releaseCube(false);
-        }
-
-        if (cubeGrabbed && Input.GetMouseButtonDown(0) && Time.time > timeToGrab)
-        {
-            releaseCube(true);
         }
 
         portalPreview.gameObject.SetActive(isValid);
@@ -97,55 +79,7 @@ public class PortalGun : MonoBehaviour
         }
     }
 
-    private bool grabCube()
-    {
-        if (cubeGrabbed) return false;
-        Ray r = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (!cubeGrabbed && Time.time > timeToGrab && Physics.Raycast(r, out RaycastHit hit, maxShootDistance))
-        {
-            if (!cubeGrabbed && hit.transform.gameObject.CompareTag("Cube"))
-            {
-                companionCube = hit.transform;
-                timeToGrab = Time.time + cubeDisableTime;
-                cubeGrabbed = true;
-                companionCube.GetComponent<Rigidbody>().useGravity = false;
-                companionCube.GetComponent<Rigidbody>().isKinematic = true;
-                companionCube.GetComponent<TeleportableObject>().enabled = false;
-                companionCube.SetParent(this.transform);
-                companionCube.localPosition = Vector3.Lerp(hit.transform.localPosition, cubePositioner.localPosition, cubeTravelTime);
-                companionCube.rotation.SetLookRotation(Camera.main.transform.forward);
-                Debug.Log("Cube Grabbed");
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private void releaseCube(bool shoot)
-    {
-        if (companionCube != null)
-        {
-            Vector3 worldPos = transform.TransformPoint(companionCube.localPosition);
-            companionCube.parent = null;
-            companionCube.GetComponent<Rigidbody>().useGravity = true;
-            companionCube.GetComponent<Rigidbody>().isKinematic = false;
-            companionCube.GetComponent<TeleportableObject>().enabled = true;
-            companionCube.SetPositionAndRotation(worldPos, Quaternion.LookRotation(Camera.main.transform.forward));
-            if (shoot)
-            {
-                companionCube.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * cubeForwardForce);
-                Debug.Log("Cube Shot");
-            }
-            companionCube = null;
-            timeToGrab = Time.time + cubeDisableTime;
-            cubeGrabbed = false;
-            Debug.Log("Cube Released");
-        } else
-        {
-            cubeGrabbed = false;
-        }
-        
-    }
 
     private void putPortal(Transform portal)
     {

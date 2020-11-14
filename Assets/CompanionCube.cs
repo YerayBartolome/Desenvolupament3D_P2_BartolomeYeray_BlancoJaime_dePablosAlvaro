@@ -7,7 +7,8 @@ public class CompanionCube : MonoBehaviour
     [SerializeField] GameObject destroyedCube;
     public void Destroy()
     {
-        Instantiate(destroyedCube, transform.position, transform.rotation);
+        destroyedCube = Instantiate(destroyedCube, transform.position, transform.rotation);
+        destroyedCube.GetComponent<Transform>().localScale = transform.localScale;
         Destroy(gameObject);
     }
 }

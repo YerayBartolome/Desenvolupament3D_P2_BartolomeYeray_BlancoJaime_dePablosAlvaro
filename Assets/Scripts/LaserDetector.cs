@@ -11,19 +11,18 @@ public class LaserDetector : MonoBehaviour
     UnityEvent deactivate;
     bool activated = false;
     bool wasActivated = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
 
 
-        if (!wasActivated && activated) Debug.Log("Abrir");//activate.Invoke();
-        if(wasActivated && !activated) Debug.Log("Cerrar");//deactivate.Invoke();
+        if (!wasActivated && activated) activate.Invoke();
+        if(wasActivated && !activated) deactivate.Invoke();
         wasActivated = activated;
         activated = false;
         

@@ -12,6 +12,7 @@ public class GravityGun : MonoBehaviour
 
     Quaternion initialRot;
     Vector3 initialPos;
+    Vector3 finalPos;
     enum GravityState
     {
         attaching, attached
@@ -48,6 +49,17 @@ public class GravityGun : MonoBehaviour
         {
             if (attachedObject != null)
             {
+                Ray ray = new Ray(Camera.main.transform.position, attachTransform.position - Camera.main.transform.position);
+                float distance = (attachTransform.position - Camera.main.transform.position).magnitude - (attachedObject.transform.lossyScale.x * Mathf.Sqrt(2)/2);
+                if (Physics.Raycast(ray, out RaycastHit hit, distance, LayerMask.GetMask("Scenary")))
+                {
+                    GameObject collision = hit.transform.gameObject;
+                    Debug.Log(collision.name);
+                    finalPos = hit.point;
+                }
+
+                else finalPos = attachTransform.position;
+                
                 switch (stateGun)
                 {
                     case GravityState.attaching:
@@ -59,6 +71,8 @@ public class GravityGun : MonoBehaviour
                 }
             }
         }
+
+        GetComponent<PortalGun>().enabled = attachedObject == null;
     }
 
     private void detachObject(float force)
@@ -69,12 +83,13 @@ public class GravityGun : MonoBehaviour
     }
 
     Vector3 pos = new Vector3(0,0,0);
+
     private void updateAttached()
     {
-        Vector3 posicionAgarre = attachTransform.position;
+        Vector3 posicionAgarre = finalPos;              //attachTransform.position;
         if ((pos - posicionAgarre).magnitude != 0)
         {
-            Debug.Log("Antes era:"+ pos +" Ahora es: "+ posicionAgarre);
+            //Debug.Log("Antes era:"+ pos +" Ahora es: "+ posicionAgarre);
             pos = posicionAgarre;
             
         }
@@ -89,10 +104,10 @@ public class GravityGun : MonoBehaviour
     {
 
         attachedObject.MovePosition(attachedObject.position +
-            (attachTransform.position - attachedObject.position).normalized
+            (finalPos - attachedObject.position).normalized
             * moveSpeed * Time.deltaTime);
-        attachedObject.rotation = Quaternion.Lerp(initialRot, attachTransform.rotation, (attachedObject.position - initialPos).magnitude / (attachTransform.position - initialPos).magnitude);
-        if ((attachedObject.position - attachTransform.position).magnitude < 0.1f)
+        attachedObject.rotation = Quaternion.Lerp(initialRot, attachTransform.rotation, (attachedObject.position - initialPos).magnitude / (finalPos - initialPos).magnitude);
+        if ((attachedObject.position - finalPos).magnitude < 0.1f)
             stateGun = GravityState.attached;
     }
 

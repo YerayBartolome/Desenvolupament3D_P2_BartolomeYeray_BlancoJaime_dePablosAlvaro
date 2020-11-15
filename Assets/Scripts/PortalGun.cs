@@ -48,12 +48,13 @@ public class PortalGun : MonoBehaviour
     {
         spriteRenderer.sprite = crosshair;
         light.color = Color.white;
+        bool isValid = false;
     }
 
     void Update()
     {
         spriteRenderer.sprite = crosshair;
-        bool isValid = false;
+        
 
         if ( Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
@@ -69,12 +70,12 @@ public class PortalGun : MonoBehaviour
 
         if (isValid && Input.GetMouseButtonUp(1))
         {
-            putPortal(portalA);
+            putPortal(portalB);
             spriteRenderer.sprite = crosshairB;
         }
         if (isValid && Input.GetMouseButtonUp(0))
         {
-            putPortal(portalB);
+            putPortal(portalA);
             spriteRenderer.sprite = crosshairO;
         }
     }
@@ -87,6 +88,7 @@ public class PortalGun : MonoBehaviour
         portal.position = portalPreview.position;
         portal.forward = portalPreview.forward;
         portal.transform.localScale = new Vector3(portalPreview.localScale.x, portalPreview.localScale.y, portal.transform.localScale.z);
+        isValid = false;
     }
 
     bool putPreview()

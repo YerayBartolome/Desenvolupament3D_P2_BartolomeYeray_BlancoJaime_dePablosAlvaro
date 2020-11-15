@@ -35,6 +35,11 @@ public class Laser : MonoBehaviour
             {
                 Destroy(l_RaycastHit.transform.gameObject);
             }
+            else if (l_RaycastHit.collider.TryGetComponent(out RefractionCube rc)) //codigo facilito.com
+            {
+                //Reflect ray
+                rc.CreateRefraction();
+            }
         }
         m_LineRenderer.SetPosition(1, lastPoint);
     }

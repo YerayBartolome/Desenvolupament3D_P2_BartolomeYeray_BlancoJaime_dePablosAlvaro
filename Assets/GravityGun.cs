@@ -106,7 +106,7 @@ public class GravityGun : MonoBehaviour
         attachedObject.MovePosition(attachedObject.position +
             (finalPos - attachedObject.position).normalized
             * moveSpeed * Time.deltaTime);
-        attachedObject.rotation = Quaternion.Lerp(initialRot, attachTransform.rotation, (attachedObject.position - initialPos).magnitude / (finalPos - initialPos).magnitude);
+        attachedObject.rotation = Quaternion.Lerp(initialRot, Quaternion.LookRotation(Vector3.forward)/*attachTransform.rotation*/, (attachedObject.position - initialPos).magnitude / (finalPos - initialPos).magnitude);
         if ((attachedObject.position - finalPos).magnitude < 0.1f)
             stateGun = GravityState.attached;
     }

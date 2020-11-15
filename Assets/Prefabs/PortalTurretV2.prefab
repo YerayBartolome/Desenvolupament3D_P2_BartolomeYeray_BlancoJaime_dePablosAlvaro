@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3594588526250461615}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.033939946, y: 0.033939946, z: 0.033939946}
+  m_LocalScale: {x: 0.01554123, y: 0.01554123, z: 0.01554123}
   m_Children: []
   m_Father: {fileID: 5126381107763850188}
   m_RootOrder: 0
@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4660707786411542574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.065, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0.029, z: 0.141}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5126381107763850188}
@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 4660707787036460996}
   - component: {fileID: 4660707787036460986}
   - component: {fileID: 4660707787036460987}
+  - component: {fileID: 8999546255179877627}
   m_Layer: 0
   m_Name: PortalTurretV2
   m_TagString: Turret
@@ -280,7 +281,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Center: {x: 0, y: -1.05, z: -0.97}
+  m_Center: {x: 0, y: -0.44, z: -0.45}
 --- !u!135 &4660707787036460998
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -293,7 +294,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Center: {x: -0.41, y: -1.05, z: 0.59}
+  m_Center: {x: -0.2, y: -0.44, z: 0.26}
 --- !u!135 &4660707787036460999
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -306,7 +307,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Center: {x: 0.41, y: -1.05, z: 0.59}
+  m_Center: {x: 0.2, y: -0.44, z: 0.26}
 --- !u!136 &4660707787036460996
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -317,10 +318,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.45452094
-  m_Height: 1.3284609
+  m_Radius: 0.18883109
+  m_Height: 0.6432477
   m_Direction: 1
-  m_Center: {x: 0, y: 0.08070588, z: -0.16}
+  m_Center: {x: 0, y: 0.043052137, z: -0.06}
 --- !u!114 &4660707787036460986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +378,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LineRenderer: {fileID: 4660707786411542575}
-  m_MaxDistance: 20
+  m_MaxDistance: 50
   m_CollisionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8999546255179877627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507692167721251190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c629b8adde33d94cb3be72599c810f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportOffset: 0.5

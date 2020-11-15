@@ -10,6 +10,7 @@ public class TeleportableObject : MonoBehaviour
     Vector3 teleportPosition;
     Vector3 teleportForward;
     Vector3 teleportVelocity;
+    Vector3 beforeTriggerVelocity;
     bool teleporting;
     float teleportSizeRatio;
 
@@ -23,7 +24,7 @@ public class TeleportableObject : MonoBehaviour
             teleportPosition = portal.otherPortal.transform.TransformPoint(l_Position);
             teleportForward = portal.otherPortal.transform.TransformDirection(l_Direction);
             teleportPosition += portal.otherPortal.transform.forward * teleportOffset;
-            var velocity = transform.GetComponent<Rigidbody>().velocity;
+            var velocity = beforeTriggerVelocity;                         // transform.GetComponent<Rigidbody>().velocity;
             velocity = portal.virtualPortal.transform.InverseTransformDirection(velocity);
             velocity = portal.otherPortal.transform.TransformDirection(velocity);
             teleportVelocity = velocity;
@@ -39,6 +40,10 @@ public class TeleportableObject : MonoBehaviour
 
         }
     }
+    private void FixedUpdate()
+    {
+        beforeTriggerVelocity = transform.GetComponent<Rigidbody>().velocity;
+    }
 
     // Update is called once per frame
     void LateUpdate()
@@ -47,6 +52,7 @@ public class TeleportableObject : MonoBehaviour
         {
             transform.position = teleportPosition;
             transform.forward = teleportForward;
+            //GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             GetComponent<Rigidbody>().velocity = teleportVelocity;
             if (transform.CompareTag("Cube")) transform.localScale *= teleportSizeRatio;
             teleporting = false;

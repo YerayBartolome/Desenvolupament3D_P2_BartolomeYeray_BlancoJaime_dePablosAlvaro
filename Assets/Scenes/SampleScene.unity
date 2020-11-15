@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4d8f81018dfd64988f03c23470eeb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LineRenderer: {fileID: 0}
+  m_LineRenderer: {fileID: 1717783071}
 --- !u!1001 &93019194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 320174394}
   - component: {fileID: 320174395}
   - component: {fileID: 320174396}
+  - component: {fileID: 320174397}
   m_Layer: 8
   m_Name: Portal1
   m_TagString: portal
@@ -496,7 +497,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4d8f81018dfd64988f03c23470eeb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LineRenderer: {fileID: 0}
+  m_LineRenderer: {fileID: 1221203248}
+--- !u!114 &320174397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320174392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f86544080433ce489b7b439fb1b249c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &350011067
 GameObject:
   m_ObjectHideFlags: 0

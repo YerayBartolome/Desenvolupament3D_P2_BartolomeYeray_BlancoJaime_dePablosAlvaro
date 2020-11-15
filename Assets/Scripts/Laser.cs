@@ -26,7 +26,7 @@ public class Laser : MonoBehaviour
         {
             lastPoint = Vector3.forward * l_RaycastHit.distance;
 
-            Debug.Log(lastPoint);
+            
             if(l_RaycastHit.transform.gameObject.TryGetComponent(out FPSController player))
             {
                 //Kill player
@@ -39,6 +39,10 @@ public class Laser : MonoBehaviour
             {
                 //Reflect ray
                 rc.CreateRefraction();
+            }
+            else if (l_RaycastHit.collider.TryGetComponent(out LaserDetector ls))
+            {
+                ls.Activate();
             }
         }
         m_LineRenderer.SetPosition(1, lastPoint);

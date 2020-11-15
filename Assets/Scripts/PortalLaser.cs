@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public class PortalLaser : MonoBehaviour
 {
     [SerializeField]
     LineRenderer m_LineRenderer;
@@ -10,24 +10,27 @@ public class Laser : MonoBehaviour
     float m_MaxDistance;
     [SerializeField]
     LayerMask m_CollisionLayerMask;
+    [SerializeField]
+    float offset = 0.5f;
     bool isActive = true;
+    Vector3 direction = Vector3.zero;
+    Vector3 origin = Vector3.zero;
 
-      
+
     void Update()
     {
-        m_LineRenderer.enabled = isActive;
 
-        if (!isActive) return;
-
-        Vector3 lastPoint = Vector3.forward * m_MaxDistance;
-        if(Physics.Raycast(
-            new Ray(m_LineRenderer.transform.position,m_LineRenderer.transform.forward),
+        Vector3 lastPoint =  (direction * m_MaxDistance);
+        //m_LineRenderer.SetPosition(0, origin);
+        
+        if (Physics.Raycast(
+            new Ray(m_LineRenderer.transform.position, m_LineRenderer.transform.TransformDirection(direction)),
             out RaycastHit l_RaycastHit, m_MaxDistance, m_CollisionLayerMask))
         {
-            lastPoint = Vector3.forward * l_RaycastHit.distance;
+            lastPoint =  (direction * l_RaycastHit.distance);
 
-            
-            if(l_RaycastHit.transform.gameObject.TryGetComponent(out GameController player))
+
+            if (l_RaycastHit.transform.gameObject.TryGetComponent(out GameController player))
             {
                 player.Die();
             }
@@ -44,15 +47,20 @@ public class Laser : MonoBehaviour
             {
                 ls.Activate();
             }
+            else if (l_RaycastHit.collider.TryGetComponent(out RefractionPortal rp))
+            {
+                rp.CreateRefraction(m_LineRenderer);
+            }
         }
         m_LineRenderer.SetPosition(1, lastPoint);
     }
-    public void activateLaser()
+
+    public void setDirection(Vector3 dir)
     {
-        isActive = true;
+        direction = dir.normalized;
     }
-    public void deactivateLaser()
+    public void setOrigin(Vector3 point)
     {
-        isActive = false;
+        origin = point + Vector3.forward * offset;
     }
 }

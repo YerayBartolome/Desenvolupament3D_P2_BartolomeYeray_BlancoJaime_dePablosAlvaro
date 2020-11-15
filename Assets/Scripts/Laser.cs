@@ -24,7 +24,8 @@ public class Laser : MonoBehaviour
             new Ray(m_LineRenderer.transform.position,m_LineRenderer.transform.forward),
             out RaycastHit l_RaycastHit, m_MaxDistance, m_CollisionLayerMask))
         {
-            lastPoint = Vector3.forward * l_RaycastHit.distance/2 ;
+            lastPoint = Vector3.forward * l_RaycastHit.distance;
+
             Debug.Log(lastPoint);
             if(l_RaycastHit.transform.gameObject.TryGetComponent(out FPSController player))
             {

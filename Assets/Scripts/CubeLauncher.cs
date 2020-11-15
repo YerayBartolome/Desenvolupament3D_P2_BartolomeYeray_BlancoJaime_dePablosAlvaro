@@ -8,7 +8,7 @@ public class CubeLauncher : MonoBehaviour
     [SerializeField] Transform cubeSpawn;
     [SerializeField] float spawnForce;
     GameObject currentCube = null;
-    public void LaunchCube(out bool destroyed)
+    public void LaunchCube()
     {
         if (currentCube != null)
         {
@@ -16,7 +16,6 @@ public class CubeLauncher : MonoBehaviour
             currentCube.GetComponent<CompanionCube>().Destroy();
             currentCube = null;
         }
-        destroyed = true;
         currentCube = Instantiate(companionCube, cubeSpawn.position, cubeSpawn.rotation);
         currentCube.GetComponent<Rigidbody>().AddForce(cubeSpawn.forward * spawnForce);
     }

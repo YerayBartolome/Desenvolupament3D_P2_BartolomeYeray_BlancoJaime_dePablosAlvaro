@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 5170831052003960282}
   - component: {fileID: 5760344629174468583}
   - component: {fileID: 9215517159605784452}
-  - component: {fileID: 491801200637420036}
+  - component: {fileID: 9037590026230701384}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animName: open_door
---- !u!135 &491801200637420036
-SphereCollider:
+--- !u!65 &9037590026230701384
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,8 +106,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.92432594
-  m_Center: {x: 0, y: 0.5, z: 2}
+  m_Size: {x: 2.96, y: 1.6341522, z: 0.48742485}
+  m_Center: {x: 0, y: 0.7211832, z: 2.83}
 --- !u!1 &3020062036517715661
 GameObject:
   m_ObjectHideFlags: 0

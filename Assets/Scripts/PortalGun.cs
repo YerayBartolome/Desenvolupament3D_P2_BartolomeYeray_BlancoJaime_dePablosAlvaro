@@ -12,12 +12,15 @@ public class PortalGun : MonoBehaviour
     [SerializeField]
     Transform portalPreview;
     [SerializeField]
-    Transform portalA;
+    GameObject portalBlue;
     [SerializeField]
-    Transform portalB;
+    GameObject portalOrange;
     [SerializeField]
     Camera cameraPlayer;
     bool isValid;
+    Transform portalA;
+    Transform portalB;
+    bool isBlue, isOrange;
 
     [Header("Diegetics")]
     [SerializeField]
@@ -49,6 +52,8 @@ public class PortalGun : MonoBehaviour
         spriteRenderer.sprite = crosshair;
         light.color = Color.white;
         bool isValid = false;
+        portalA = portalBlue.transform;
+        portalB = portalOrange.transform;
     }
 
     void Update()
@@ -58,26 +63,34 @@ public class PortalGun : MonoBehaviour
 
         if ( Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
-            
             isValid = putPreview();
             spriteRenderer.sprite = Input.GetMouseButton(0) ? crosshairB : crosshairO;
             meshRenderer.material = Input.GetMouseButton(0) ? materialB : materialO;
             light.color = Input.GetMouseButton(0) ? colorB : colorO;
             
+        } else
+        {
+            if (isBlue && isOrange) spriteRenderer.sprite = crosshairBO;
+            else if (isBlue) spriteRenderer.sprite = crosshairB;
+            else if (isOrange) spriteRenderer.sprite = crosshairO;
+            else spriteRenderer.sprite = crosshair;
         }
 
         portalPreview.gameObject.SetActive(isValid);
 
         if (isValid && Input.GetMouseButtonUp(1))
         {
+            isOrange = true;
             putPortal(portalB);
             spriteRenderer.sprite = crosshairB;
         }
         if (isValid && Input.GetMouseButtonUp(0))
         {
+            isBlue = true;
             putPortal(portalA);
             spriteRenderer.sprite = crosshairO;
         }
+
     }
 
 

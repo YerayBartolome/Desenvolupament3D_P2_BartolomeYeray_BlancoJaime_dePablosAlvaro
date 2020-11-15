@@ -9,6 +9,7 @@ public class GravityGun : MonoBehaviour
     Transform attachTransform;
     [SerializeField] float moveSpeed;
     [SerializeField] float throwForce;
+    [SerializeField] float maxGrabDistance;
 
     Quaternion initialRot;
     Vector3 initialPos;
@@ -25,25 +26,23 @@ public class GravityGun : MonoBehaviour
     {
         attachTransform = transformPoint.transform;
     }
-    private void Update()
+    private void LateUpdate()
     {
 
-        if (Input.GetKeyDown(KeyCode.E) && attachedObject == null)
+        if (Input.GetMouseButtonUp(0) && attachedObject == null)
         {
             GetComponent<PortalGun>().enabled = false;
             attachedObject = shootGravity();
         }
-
-        else if (Input.GetKeyDown(KeyCode.E) && attachedObject != null)
+        else if (Input.GetMouseButtonDown(0) && attachedObject != null)
         {
             detachObject(throwForce);
-            GetComponent<PortalGun>().enabled = true;
 
         }
-        else if ((Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) && attachedObject != null)
+        else if (Input.GetMouseButtonDown(1) && attachedObject != null)
         {
             detachObject(0);
-            GetComponent<PortalGun>().enabled = true;
+            
         }
         else
         {
@@ -92,9 +91,9 @@ public class GravityGun : MonoBehaviour
                         break;
                 }
             }
+            
         }
-
-        GetComponent<PortalGun>().enabled = attachedObject == null;
+        if (attachedObject == null && (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))) GetComponent<PortalGun>().enabled = true;
     }
 
     private void detachObject(float force)
@@ -134,7 +133,7 @@ public class GravityGun : MonoBehaviour
 
     Rigidbody shootGravity()
     {
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)), out RaycastHit hitInfo, 150.0f))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f)), out RaycastHit hitInfo, maxGrabDistance))
         {
             Rigidbody rb = hitInfo.transform.GetComponent<Rigidbody>();
             if (rb == null)
